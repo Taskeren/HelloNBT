@@ -38,8 +38,8 @@ public final class NBTPathImpl<T extends Tag> implements NBTPath<T> {
     @SuppressWarnings({"ReassignedVariable", "unchecked"})
     public static <T extends Tag> Stream<T> select(NBTParent<?> parent, NBTPath<? extends T> path) {
         Stream<? extends Tag> tags;
-        if (parent instanceof CompoundTag compoundTag) {
-            tags = Stream.of(compoundTag);
+        if (parent instanceof ParentTag<?> parentTag) {
+            tags = Stream.of(parentTag);
         } else if (parent instanceof ChunkRegion chunkRegion) {
             tags = chunkRegion.stream()
                     .flatMap(chunk -> Stream.<Tag>ofNullable(chunk.getRootTag()));

@@ -305,4 +305,19 @@ final class NBTPathTest {
         assertEquals("TEST", chunk.getFirstString(path));
         assertEquals("test", path.toPathString());
     }
+
+    @Test
+    void testOfPath6() {
+        // [ { foo: bar } ]
+        ListTag<CompoundTag> rootTag = new ListTag<>();
+        CompoundTag compoundTag;
+        rootTag.addTag(compoundTag = new CompoundTag());
+        compoundTag.addString("foo", "bar");
+        StringTag tag = (StringTag) compoundTag.getTag(0);
+
+        NBTPath<StringTag> path = NBTPath.of(tag);
+        assertNotNull(path, "path is null");
+        assertEquals("[0].foo", path.toPathString());
+        assertEquals("bar", rootTag.getFirstStringOrNull(path));
+    }
 }
